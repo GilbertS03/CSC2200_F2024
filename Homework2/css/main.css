@@ -1,0 +1,195 @@
+html{
+    font-size: 16px;
+}
+
+div#header{
+    background-color: #3f464d;
+    display: flex;
+    flex-direction: row;
+}
+div > h2{
+    margin: 0 400px 0 0;
+    padding: 0 30px 0 20px;
+}
+.flexitem2{
+    margin: 0 300px 0 0;
+    padding: 0 45px;
+    white-space: nowrap;
+    text-align: center;
+    justify-content: center;
+}
+.flexitem2 > span{
+    position: relative;
+    top: 30px;
+    font-size: 3rem;
+    color: yellow;
+}
+.flexitem3{
+    white-space: nowrap;
+    text-align: center;
+    justify-content: center;
+}
+.flexitem3 > span{
+    position: relative;
+    top: 40px;
+    color: white;
+}
+img#me{
+    width: 100px;
+    margin: 10px 10px 10px 0;
+}
+#middle{
+    font-size: 3rem;
+    justify-content: center;
+    text-align: center;
+    margin: 10px 10px 40px 10px;
+    padding: 5px 0 0 0;;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: lightgrey;
+    width: 90%;
+    margin: auto;
+    padding: 40px;
+    border: solid 3px grey;
+    border-radius: 10px;
+}
+.boldHead{
+    font-weight: bold;
+    font-size: 2rem;
+}
+span > span{
+    padding: 0 10px 0 0;
+}
+article{
+    font-size: 1.1rem;
+}
+
+div#header1{
+    background-color: #3f464d;
+    display: flex;
+    flex-direction: row;
+    padding: 25px 0;
+}
+div#header1 > h2{
+    margin: 0 425px 0 0;
+    padding: 0 30px 0 20px;
+}
+div#header1 > .flexitem2{
+    position: relative;
+    bottom: 15px;
+}
+div#header1 > .flexitem3{
+    position: relative;
+    bottom: 20px;
+}
+
+#comic{
+    width: 100px;
+}
+
+.innerContainerTop{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+    height: 160px;
+}
+.innerContainerBottom{
+    display: flex;
+    flex-direction: row;
+}
+
+.innerContainerTop > .left{
+    width: 47.5%;
+    border: solid 2px grey;
+    border-radius: 10px;
+    padding: 10px 20px 10px 10px;
+    background-color: lightblue;
+}
+.something{
+    border: solid 2px black;
+}
+.innerContainerTop > .right{
+    width: 47.5%;
+    border: solid 2px grey;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: navajowhite;
+}
+
+.innerContainerBottom > .left{
+    width: 46.5%;
+    border: solid 2px grey;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: magenta;
+}
+
+.innerContainer{
+    width: 75%;
+    border: 1px solid red;
+}
+#dil{
+    position: absolute;
+    width: 40px;
+    left: 670px;
+    top: 325px;
+}
+
+#cal{
+    position: absolute;
+    width: 40px;
+    right: 105px;
+    top: 375px;
+}
+
+#garfield{
+    position: absolute;
+    width: 40px;
+    right: 815px;
+}
+
+.mid{
+    width: 5%;
+}
+
+p{
+    width: 95%;
+}
+
+.container1{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    margin: auto;
+    padding: 40px;
+}
+
+.something > b{
+    font-size: 1.75rem;
+}
+.something > b{
+    font-size: 1.75rem;
+}
+
+
+@media screen and (max-width: 480px) {
+    body{
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+a.active{
+    color: red;
+    text-decoration: underline;
+}
+a.notActive{
+    color: white;
+    text-decoration: none;
+}

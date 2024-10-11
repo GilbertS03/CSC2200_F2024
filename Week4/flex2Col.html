@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    .flex-container {
+      display: flex;
+      flex-direction: row;
+      font-size: 30px;
+      text-align: center;
+      gap: 20px;
+    }
+    .flex-item-left {
+      background-color: #f1f1f1;
+      padding: 10px;
+      flex: 50%;
+    }
+    .flex-item-right {
+      background-color: dodgerblue;
+      padding: 10px;
+      flex: 50%;
+    }
+    /* Responsive layout - makes a one column-layout instead of two-column layout */
+    @media (max-width: 800px) {
+      .flex-container {
+        flex-direction: column;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+<header >
+  <img id='logo' src="imgs/logo.png" alt="The Logo "/>
+  <h2 id="title"> Cartoons 4 U </h2>
+</header>
+<main>
+<h1>Responsive Flexbox</h1>
+<div class="flex-container">
+  <div class="flex-item-left">
+    <div class="colTitle">
+      Calvin and Hobbes
+    </div>
+    <img id='calvinImg' src="imgs/calvinSnow2.PNG"  />
+    Calvin and Hobbes, American newspaper comic strip that ran from 1985 to 1995,
+    chronicling the high jinks of Calvin, a six-year-old boy, and his pet tiger, Hobbes.
+    Calvin and Hobbes was renowned for its vivid portrayal of a child’s imagination.
+  </div>
+  <div class="flex-item-right">
+    <div class="colTitle">Dilbert</div>
+    <img id='dilbertImg' src="imgs/dilbert.PNG"  />
+    Dilbert is an American comic strip written and illustrated by Scott Adams,
+    first published on April 16, 1989.[2] It is known for its satirical office humor about a
+    white-collar, micromanaged office with engineer Dilbert as the title character.
+    It has spawned dozens of books, an animated television series,
+    a video game, and hundreds of themed merchandise items.
+  </div>
+</div>
+</main>
+</body>
+</html>

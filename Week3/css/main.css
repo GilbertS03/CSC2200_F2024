@@ -1,0 +1,63 @@
+body {
+    color : brown;
+    font-size: 18px;
+}
+td {
+    color: orangered;
+}
+header {
+    height: 120px;
+    background-color: plum;
+    border: solid 1px;
+    width: 100%;
+}
+#logo {
+    float: left;
+    padding: 10px;
+    height: 100px;
+}
+#title {
+    position: relative;
+    top: 50px;
+    border: 1px solid;
+    left: 20%;
+    display: inline;
+}
+table, tr, td, th  {
+    border: 2px solid;
+    border-collapse: collapse;
+}
+main {
+    padding-left: 10px;
+    width: 80%;
+}
+.pageTitle {
+    /*position: relative; */
+    top: 10px;
+    left: 20%;
+    font-family: "Arial Black";
+    color: black;
+}
+footer {
+    background-color: plum;
+    display: block;
+    font-size: 10px;
+    padding: 10px 5px 1px 25px;
+    position: relative;
+    top: 10px;
+    border: 1px black solid;
+    /* margin: 50px; */
+}
+.normalText {
+    font-size: 14px;
+    color: black;
+    background-color: bisque;
+    position: relative;
+    height: 240px;
+}
+#homer {
+    width: 100px;
+    position:  absolute;
+    top: 1px;
+    left: 1px;
+}

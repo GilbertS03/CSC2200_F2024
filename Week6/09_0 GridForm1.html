@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+        form {
+            display: grid;
+            padding: 1em;
+            background: #f9f9f9;
+            border: 1px solid #c1c1c1;
+            margin: 2rem auto 0 auto;
+            max-width: 600px;
+        }
+        form input {
+            background: #fff;
+            border: 1px solid #9c9c9c;
+        }
+        form button {
+            background: lightgrey;
+            padding: 0.7em;
+            width: 100%;
+            border: 0;
+        }
+        form button:hover {
+            background: gold;
+        }
+
+        label {
+            padding: 0.5em 0.5em 0.5em 0;
+        }
+
+        input {
+            padding: 0.7em;
+            margin-bottom: 0.5rem;
+        }
+        input:focus {
+            outline: 3px solid gold;
+        }
+
+        @media (min-width: 1000px) {
+            form {
+                grid-template-columns: 200px 1fr;
+                grid-gap: 16px;
+            }
+
+            label {
+                text-align: right;
+                grid-column: 1 / 2;
+            }
+            input,
+            button {
+                grid-column: 2 / 3;
+            }
+            form button {
+                background: red;
+            }
+        }
+    </style>
+</head>
+<body>
+<form class="form1" action="">
+    <label for="name" class="age">Name</label>
+    <input id="name" type="text" width="100px;">
+    <label for="age" class="age">Age</label>
+    <input id="age" type="text">
+    <button type='button' onclick="ageChecker()">Submit</button>
+</form>
+<span id="result"> results here: </span>
+</body>
+</html>

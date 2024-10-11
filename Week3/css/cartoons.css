@@ -1,0 +1,113 @@
+html {
+    font-size: 20px;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+}
+header {
+    background-color: #77D4FC;
+    height: 130px;
+    width: 100%;
+    position: fixed;
+    z-index: 999;
+}
+
+#logo {
+    /*width: 125px;*/
+    float: left;
+    padding-top: 10px;
+    padding-left: 10px;
+    width: 100px;
+}
+#title {
+    font-size: 1.5rem;
+    color: blue;
+    position: absolute;
+    left: 45%;
+    width: 27%;
+    top: 5%;
+    font-size: 1.8rem;
+}
+main {
+    position: relative;
+    top: 250px;
+    border: 1px solid black;
+    font-size: 1rem;
+    left: 20px;
+    height: 500px;
+}
+#leftSide {
+    position: absolute;
+    top: 10px;
+    width: 47%;
+    border: 1px solid;
+    overflow: clip;
+    height: 200px;
+}
+#rightSide {
+    position: absolute;
+    left: 51%;
+    top: 10px;
+    /* width: 50%; */
+    width: 47%;
+    border: 1px solid;
+    right: 5px;
+    /* overflow: clip; */ /* If fixed box ... what do you do with overflaw? */
+    height: 200px;
+}
+#calvinImg {
+    width: 25px;
+    float: left;
+    padding-top: 10px;
+    padding-left: 10px;
+    width: 200px;
+}
+#dilbertImg {
+    width: 25px;
+    float: left;
+    padding-top: 10px;
+    padding-left: 10px;
+    width: 80px;
+}
+.colTitle {
+    font-size: 1.2rem;
+    font-weight: bold;
+    position: relative;
+    left: 100px;
+    top: 0px;
+    border: 1px solid;
+    width: 40%;
+}
+@media only screen and (max-width: 1200px) {
+    #rightSide {
+        width: 100%;
+        position: relative;
+        background-color: #98bf21;
+        left: 0%;
+        top: 15px;
+    }
+    #leftSide {
+        width: 100%;
+        position: relative;
+    }
+    main {
+        font-size: .8rem;
+    }
+    #title{
+        font-size : 1.4rem;
+    }
+}
+@media only screen and (max-width: 800px) {
+    #title{
+        font-size : 1rem;
+    }
+    #leftSide {
+        background-color: yellow;
+    }
+    #dilbertImg{
+        width: 5rem;
+    }
+    calvinImg{
+        width: 5rem;
+    }
+}

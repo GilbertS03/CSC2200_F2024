@@ -1,0 +1,63 @@
+html{
+    font-size: 24px;
+}
+ul.nav{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+li.navLi{
+    float: left;
+}
+a:link{
+    display: block;
+    width: 120px;
+    text-decoration: none;
+    background-color: chartreuse;
+    font-weight: bold;
+    color: #000000;
+    padding: 10px;
+    border: solid black 1px;
+    margin: 5px;
+}
+a:hover{
+    background-color: turquoise;
+    text-transform: uppercase;
+}
+a:active{
+    background-color: red;
+}
+a:visited{
+    color: orange;
+}
+.myBox{
+    background-color: darkkhaki;
+    width: 30%;
+    height: 120px;
+    border: solid crimson 3px;
+    margin-left: 300px;
+    padding: 20px 0 0 10px;
+
+}
+/*p{*/
+/*    font-size: 1.5rem;*/
+/*}*/
+/*div{*/
+/*    font-size: 40px;*/
+/*}*/
+/*#inside{*/
+/*    font-size: .5em;*/
+/*}*/
+/*.myLab1{*/
+/*    */
+/*}*/
+/*div.blah{*/
+/*    */
+/*}*/
+/*div#blah{*/
+/*    */
+/*}*/
+/*div > p{*/
+/*    */
+/*}*/

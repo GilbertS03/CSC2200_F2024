@@ -1,0 +1,11 @@
+.myFont{
+    color: deeppink;
+    border: 5px solid orange;
+}
+.navBack{
+    background-color: yellow;
+}
+.brandTitle{
+    font-size: 40px;
+    font-weight: bold;
+}

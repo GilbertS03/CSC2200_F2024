@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .grid-container {
+      display: grid;
+      gap: 10px 5px;
+      grid-template-columns: 400px auto 100px auto;
+      grid-template-rows: 100px 500px 100px;
+      background-color: #2196F3;
+      padding: 10px;
+      align-content: center;
+      height: 1000px;
+    }
+    .grid-item {
+      background-color: rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      font-size: 30px;
+      text-align: center;
+    }
+    #two{
+      grid-column-start: 2;
+      grid-column-end: 4;
+    }
+    #sideAd{
+      grid-row-start: 2;
+      grid-row-end: 3;
+    }
+  </style>
+</head>
+<body>
+<h1>The column-gap Property</h1>
+<p>Use the <em>column-gap</em> property to adjust the space between the columns:</p>
+<div class="grid-container">
+  <div class="grid-item">1</div>
+  <div class="grid-item" id="two">2</div>
+  <div class="grid-item" id="sideAd">3</div>
+  <div class="grid-item">4</div>
+  <div class="grid-item">5</div>
+  <div class="grid-item">6</div>
+  <div class="grid-item">7</div>
+  <div class="grid-item">8</div>
+  <div class="grid-item">9</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+html{
+    font-size: 18px;
+    margin:0;
+    padding:0;
+}
+body {
+    color : brown;
+}
+td {
+    color: orangered;
+}
+header {
+    height: 120px;
+    background-color: plum;
+    border: solid 1px;
+    width: 100%;
+}
+#logo {
+    float: left;
+    /*padding: 10px;*/
+    padding-top: 10px;
+    padding-left: 10px;
+    height: 100px;
+}
+#title {
+    position: relative;
+    top: 5px;
+    /*border: 1px solid;*/
+    left: 50px;
+    /*display: inline;*/
+}
+table, tr, td, th  {
+    border: 2px solid;
+    border-collapse: collapse;
+}
+main {
+    margin-left: 10%;
+    padding-left: 5%;
+    width: 80%;
+    background-color: antiquewhite;
+    position: relative;
+}
+.pageTitle {
+    background-color: cornflowerblue;
+    width: 100%;
+    position: relative;
+    right: 5%;
+}
+/*footer {*/
+/*    background-color: plum;*/
+/*    display: block;*/
+/*    font-size: 10px;*/
+/*    padding: 10px 5px 1px 25px;*/
+/*    position: relative;*/
+/*    top: 10px;*/
+/*    border: 1px black solid;*/
+/*    !* margin: 50px; *!*/
+/*}*/
+/*.normalText {*/
+/*    font-size: 14px;*/
+/*    color: black;*/
+/*    background-color: bisque;*/
+/*    position: relative;*/
+/*    height: 240px;*/
+/*}*/
+#homer {
+    width: 100px;
+    /*float: right;*/
+    padding-right: 15px;
+    position:  absolute;
+    bottom: 0;
+    right: 0;
+}

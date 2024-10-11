@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+    <title>Example</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+        }
+        #main {
+            display: flex;
+            min-height: 100%;
+        }
+
+        #main > article {
+            flex: 1;
+        }
+
+        #main > nav,
+        #main > aside {
+            flex: 0 0 20%;
+            background: beige;
+        }
+
+        #main > nav {
+            order: -1;
+        }
+
+        header, footer, article, nav, aside {
+            padding: 1em;
+        }
+
+        header, footer {
+            background: yellowgreen;
+            height: 20vh;
+        }
+    </style>
+</head>
+<body>
+<header>Header LOGO HERE </header>
+<div id="main">
+    <article>Article
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A amet aperiam consequuntur deserunt eius, error
+        facilis ipsa iusto laudantium molestiae obcaecati placeat quam, quo repellendus unde voluptas voluptate. Cum
+        dicta, doloremque eligendi eveniet facere iure laudantium maiores, molestiae nisi officiis quasi
+        quisquam soluta, ullam.
+    </article>
+    <article>Article
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A amet aperiam consequuntur deserunt eius, error
+        facilis ipsa iusto laudantium molestiae obcaecati placeat quam, quo repellendus unde voluptas voluptate. Cum
+        dicta, doloremque eligendi eveniet facere iure laudantium maiores, molestiae nisi officiis quasi
+        quisquam soluta, ullam.
+    </article>
+    <article>Article
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A amet aperiam consequuntur deserunt eius, error
+        facilis ipsa iusto laudantium molestiae obcaecati placeat quam, quo repellendus unde voluptas voluptate. Cum
+        dicta, doloremque eligendi eveniet facere iure laudantium maiores, molestiae nisi officiis quasi
+        quisquam soluta, ullam.
+    </article>
+
+<!--    <aside>Aside</aside>-->
+<!--    <nav>Nav</nav>-->
+</div>
+<footer>Footer</footer>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <style>
+    .nav ul {
+      display: flex;
+      list-style-type: none;
+      text-align: center;
+      gap: 5px;
+      justify-content: center;
+      border: 1px solid red;
+    }
+    .nav li {
+      width: 200px;
+      background-color: yellow;
+      border: 1px solid;
+    }
+    a, a:hover, a:focus, a:active {
+      text-decoration: none;
+      color: inherit;
+    }
+    a:hover {
+      background-color: orange;
+      text-transform: uppercase;
+    }
+    @media (max-width: 1000px) {
+      .nav ul {
+        flex-direction: column;
+        justify-content:flex-end;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="nav">
+  <ul>
+    <li><a href="/products">Products</a></li>
+    <li><a href="/pricing">Pricing</a></li>
+    <li><a href="/about-us">About Us</a></li>
+    <li><a href="/contacts">Contacts</a></li>
+    <!-- Additinal items
+    added in a CMS… -->
+  </ul>
+</div>
+</body>
+</html>
