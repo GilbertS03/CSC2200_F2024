@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script>
+    function doAge(){
+        // alert("Did it work?");
+        let userAge = document.getElementById("uAge").value;
+        // alert(`Age: ${userAge}`)
+        // alert("Age: " +userAge)
+        // console.log(`Age is ${userAge}`);
+        console.log(`Age type: ${typeof userAge}`);
+        //We have strings and numbers as data types so far
+        let age = userAge;
+        console.log(`Age2 Type: ${typeof age}`)
+        console.log(`Age2: ${age}`)
+        let isOkay = true;
+        if(isNaN(age)){
+            //console.log("That's no good");
+            let res = document.getElementById("results");
+            res.innerHTML = `<h2 style="color:red;">That age is no good: ${age}</h2>`
+        }
+        else{
+            let msg = "<ol>";
+            // if( age === happy){
+            //     msg += "<li> I do not care </li>"
+            // }
+            if(age === 15){
+                msg += "<li> You can get a learner's permit</li>"
+            }
+            if(age >= 16){
+                msg += "<li> You can drive</li>"
+            }
+            if (age <= 0){
+                msg += "<li> You are not born yet </li>"
+            }
+            // console.log("We are okay")
+            msg += "</ol>"
+            let res = document.getElementById(("results"));
+            res.innerHTML = msg;
+        }
+
+    }
+</script>
+<body>
+    <h2>Show your rights</h2>
+    <form>
+        Age: <input type="text" name="age" id="uAge">
+        <button type="button" onClick="doAge()"> Click to start</button>
+    </form>
+    <div id="results">Your results here</div>
+</body>
+</html>
