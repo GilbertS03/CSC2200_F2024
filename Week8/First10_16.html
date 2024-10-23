@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function doSomeStuff(){
+            // let x = "X99";
+            // x = parseInt(x) + 1;
+            // console.log(`x = ${x}` )
+            // console.log(typeof x)
+            let x;
+            x = "Happy"; //String
+            x += ' and Sad'//String
+            x = 3.14159; // Number
+            x = []; // An array as an object
+            x = {} // An Object literal
+            x = "blah" / 100;
+            checkType2(x);
+        }
+        function checkType(n){
+            let msg = `Input is of type: ${typeof n}`;
+            let resObj = document.getElementById("result");
+            if(resObj == null){
+                alert("resObj is null")
+            }
+            if(n === undefined){
+                alert("Undefined data type")
+            }
+            resObj.innerHTML = msg;
+        }
+        function checkType2(n){
+            let msg = `Input is of type: ${typeof n}`;
+            let resObj = document.getElementById("result");
+            resObj.innerHTML = msg;
+        }
+    </script>
+</head>
+<body>
+    <button type="button" onClick="doSomeStuff()" > Click me </button>
+    <div id="result"> </div>
+</body>
+</html>
