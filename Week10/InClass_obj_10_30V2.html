@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function hello(){
+            alert("hello")
+        }
+        window.onload= function(){
+            //this is an object literal with a function has a member variable
+            //Object literal syntax
+            const pet = [ {
+                name : "spot",
+                noise : "Bark"
+            }, {
+                name : "fluffy"
+            }
+            ]
+
+            //This is the more traditional way of creating an object
+            //Constructor syntax
+            //Good for multiple versions of the same thing
+            function SuperHero(name, power, damage){
+                this.name = name;
+                this.power = power;
+                this.damage = damage;
+                this.damageMoreThan = function(d){
+                    return this.damage > d;
+                }
+            }
+
+            let b1 = document.getElementById("b1");
+            b1.addEventListener('click', ()=>{
+                // alert("clicked")
+                let oStr = `Name is ${person.name}, `;
+                oStr += `Interest 1: ${person.interests[0]}, `;
+                oStr += `Interest 2: ${person.interests[1]}, `;
+                oStr +=  `And likes music: ${person.likeMust()}`
+                document.getElementById("results").innerHTML = oStr;
+
+            })
+
+            document.getElementById("b2").addEventListener('click', () =>{
+                let p1 = pet[0].name;
+                let p2 = pet[1].name;
+                let combo = "";
+                for(let i = 0; i < pet.length; i++){
+                    combo += pet[i].name + ' ';
+                    if(pet[i].hasOwnProperty('noise')){
+                        combo += `Noise: ${pet[i].noise}, `
+                    }
+                }
+                alert(combo)
+                let Hulk = new SuperHero("Hulk", "Smash", 1000);
+                let IronMan = new SuperHero("Tony", "Money", 2);
+                alert(`Superhero 1; Name: ${Hulk.name}, Power: ${Hulk.power}, Damage more than 999?: ${Hulk.damageMoreThan(999)}`);
+                alert(`Superhero 2; Name: ${IronMan.name}, Power: ${IronMan.power}, Damage more than 999?: ${IronMan.damageMoreThan(999)}`);
+            })
+        }
+    </script>
+</head>
+<body>
+<h2>Click to start</h2>
+<button id="b1" type="button">Click here</button>
+<button id="b2" type="button">Click here B2</button>
+<div id="results"></div>
+
+</body>
+</html>
