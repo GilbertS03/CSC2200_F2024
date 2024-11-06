@@ -1,0 +1,68 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.password-generator {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+}
+
+.password-generator h2 {
+    grid-column: 1 / -1;
+    text-align: center;
+    margin: 0 0 10px;
+}
+
+.password-generator label {
+    align-self: center;
+}
+
+.password-generator input[type="number"] {
+    justify-self: end;
+    width: 60px;
+}
+
+.checkbox-group {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.password-generator button {
+    grid-column: 1 / -1;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.password-generator button:hover {
+    background-color: #45a049;
+}
+
+.password-output {
+    grid-column: 1 / -1;
+    background-color: #e8e8e8;
+    padding: 10px;
+    border-radius: 4px;
+    text-align: center;
+    font-family: monospace;
+    word-break: break-word;
+}

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Guess The Word</title>
+    <style>
+        #form {
+            display: grid;
+            padding: 1em;
+            background: #f9f9f9;
+            border: 1px solid #c1c1c1;
+            margin: 2rem auto 0 auto;
+            max-width: 600px;
+            padding: 1em;
+        }
+        form input {
+            background: #fff;
+            border: 1px solid #9c9c9c;
+        }
+        form button {
+            background: lightgrey;
+            padding: 0.7em;
+            width: 100%;
+            border: 0;
+        }
+        form button:hover {
+            background: gold;
+        }
+        label {
+            padding: 0.5em 0.5em 0.5em 0;
+        }
+        input {
+            padding: 0.7em;
+            margin-bottom: 0.5rem;
+        }
+        input:focus {
+            outline: 3px solid gold;
+        }
+        @media (min-width: 400px) {
+            form {
+                grid-template-columns: 200px 1fr;
+                grid-gap: 16px;
+            }
+            label {
+                text-align: right;
+                grid-column: 1 / 2;
+            }
+            #results {
+                font-size: 20px;
+                grid-column: 2 / 3;
+            }
+            input, button, #results {
+                grid-column: 2 / 3;
+                position: relative;
+                top: 5px;
+            }
+            #header {
+                font-size: 25px;
+                grid-column: 2 / 3;
+            }
+        }
+    </style>
+    <script>
+        // Array of secret words
+        const wordsArray = ["apple", "grape", "peach", "melon", "berry", "plumb"];
+        let originalSecretWord = ""; // Store the original word for correct comparisons
+        let secretWord = "";
+        let showSecretWord = "";
+        let numWrong = 0;
+
+        function guessIt(){
+            //alert("clicked")
+            const isGuessLetter = document.getElementById("mode-letter").checked;
+            const isGuessWord = document.getElementById("mode-word").checked;
+            if(isGuessLetter){
+                guessLetter();
+            }
+            else if(isGuessWord){
+                guessWord();
+            }
+            else{
+                alert("What just happened")
+            }
+        }
+
+        function guessWord(){
+            //todo work on wordIsGood
+            let word = document.getElementById("letter").value;
+            let resp = wordIsGood(word);
+            if(!resp.respOK){
+                let oStr = "Error Illegal Output: " + resp.reason;
+                alert(oStr);
+            }
+            else{
+                let img;
+                if(word.toLowerCase() === originalSecretWord.toLowerCase()){
+                    showSecretWord = originalSecretWord;
+                    img = "win.png";
+                    alert("Winner winner chicken dinner")
+                    document.getElementById("submit").style.display = "none";
+                    document.getElementById("reset").style.display = "block";
+                    document.getElementById("letter").value = "";
+                }
+                else{
+                    numWrong++;
+                    img ="no.png"
+                }
+                showSecretWordSoFar(img)
+            }
+        }
+
+        function wordIsGood(word){
+            let response = {
+                respOK : true,
+                response: ""
+            };
+
+            if(word.length <= originalSecretWord.length && word !== "") {
+                for(let i = 0; i < word.length; i++){
+                    if (!/[a-zA-Z]/.test(word[i])) {
+                        response.respOK = false;
+                        response.reason = "Bad word input"
+                        break;
+                    }
+                }
+            }
+            else if(word === ""){
+                response.respOK = false;
+                response.reason = "Empty space"
+            }
+            else if(word.length > originalSecretWord.length){
+                response.respOK = false;
+                response.reason = "Length too long";
+            }
+
+            return response;
+        }
+
+        function guessLetter(){
+            //Gets the letter from the text box
+            let letter = document.getElementById("letter").value;
+            let resp = letterIsGood(letter);
+            if(!resp.respOK){
+                let oStr = "Error Illegal Output: " + resp.reason;
+                alert(oStr);
+            }
+            else{
+                //Figure out if its a good guess
+                //TODO finish this
+                let idx = secretWord.indexOf(letter); //-1 if not found, else char position
+                let img = "";
+                if(idx === -1){
+                    //Guess is incorrect
+                    numWrong++;
+                    img = "no.png";
+                }
+                else{
+                    //Guessed correctly case
+                    while(idx !== -1){
+                        showSecretWord = showSecretWord.substring(0, idx) + letter + showSecretWord.substring(idx + 1);
+                        secretWord = secretWord.substring(0, idx) + "*" + secretWord.substring(idx + 1);
+                        idx = secretWord.indexOf(letter); //check again if letter in there
+
+                    }
+                    img = "yes.png"
+                }
+                if(originalSecretWord === showSecretWord){
+                    img = "win.png";
+                    alert("Winner winner chicken dinner")
+                    document.getElementById("submit").style.display = "none";
+                    document.getElementById("reset").style.display = "block";
+                    document.getElementById("letter").value = "";
+                }
+                showSecretWordSoFar(img);
+
+                // alert("Okay")
+            }
+        }
+
+        function letterIsGood(letter){
+            //This is an Object literal with 2 member variables that gets returned based on the input of the letter
+            let response = {
+                respOK : true,
+                response: ""
+            };
+            if(letter.length > 1){
+                response.respOK = false;
+                response.reason = "Length too long";
+            }
+             else if( !/[a-zA-Z]/.test(letter)){
+                 response.respOK = false;
+                 response.reason = "Bad letter input"
+            }
+            else if(letter === ""){
+                response.respOK = false;
+                response.reason = "Empty space"
+            }
+            return response;
+        }
+
+        // Randomly select a word from the array
+        function selectRandomWord() {
+            const randomIndex = Math.floor(Math.random() * wordsArray.length);
+            originalSecretWord = wordsArray[randomIndex]; // Keep the original word
+            secretWord = originalSecretWord; // Use this for manipulation
+            showSecretWord = "*".repeat(secretWord.length);
+        }
+
+        function showSecretWordSoFar( img ) {
+            let oStr = `<span style='color:blue'> Word: ${showSecretWord} </span>`;
+            oStr += `<br />`;
+            oStr += `<span style='color:red'> Num Wrong: ${numWrong} </span>`;
+            oStr += `<img src='imgs/${img}' width=50 />`;
+            //alert( oStr )
+            document.getElementById("results").innerHTML = oStr;
+            document.getElementById("letter").value = ""
+        }
+
+        function reset(){
+            selectRandomWord();
+            document.getElementById("submit").style.display = "block";
+            let img = "start.png";
+            numWrong = 0;
+            showSecretWordSoFar(img)
+        }
+
+        window.onload = function() {
+            // Initialize game
+            selectRandomWord();
+            let start = 'start.png'
+            showSecretWordSoFar( start );
+            // Attach the event listener for the button
+            const submitButton = document.querySelector("button#submit");
+            const resetButton = document.querySelector("button#reset")
+            submitButton.addEventListener("click", guessIt);
+            resetButton.addEventListener("click", reset)
+
+        };
+    </script>
+</head>
+<body>
+<span id="form">
+        <span id="header"> Guess The Word!</span>
+
+    <!-- Radio buttons for mode selection -->
+        <label for="mode-letter" class="Mode">Mode:</label>
+        <div>
+            <input type="radio" id="mode-letter" name="mode" value="letter" checked>
+            <label for="mode-letter">Guess Letter</label>
+            <input type="radio" id="mode-word" name="mode" value="word">
+            <label for="mode-word">Guess Word</label>
+        </div>
+
+        <label for="letter" class="Letter">Input:</label>
+        <input id="letter" type="text">
+        <button id="submit">Submit</button>
+        <button id="reset">Reset</button>
+        <br />
+        <label for="results" class="Results">Results:</label>
+        <span id="results"> results</span>
+    </span>
+</body>
+</html>
+
+
