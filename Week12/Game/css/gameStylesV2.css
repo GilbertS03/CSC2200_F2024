@@ -1,0 +1,46 @@
+/* Game container settings */
+#game-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* Game board grid */
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(8, 50px); /* 8 columns, adjust the size as needed */
+    grid-template-rows: repeat(8, 50px); /* 8 rows */
+    gap: 5px; /* Space between tiles */
+    margin: 20px;
+}
+
+/* Basic styling for the tiles */
+.tile {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ccc;
+    background-color: #f0f0f0;
+    font-size: 24px;
+    color: #333;
+}
+
+/* Icons for player, obstacles, collectibles */
+.player-icon {
+    color: blue;
+}
+
+.obstacle-icon {
+    color: black;
+}
+
+.collectible-icon {
+    color: gold;
+}
+
+.bomb-icon {
+    color: red;
+}
