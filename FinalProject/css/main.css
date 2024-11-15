@@ -1,0 +1,91 @@
+html{
+    background-color: #494b4b;
+    font-size: 14px;
+    color: #4aba91
+}
+#mainContainer{
+    text-align: center;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    align-self: center;
+
+}
+#dice{
+    background-color: red;
+    display: flex;
+    margin: 20px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 45px;
+
+}
+#dice > div{
+    width: 40px;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    border-radius: 10%;
+    margin: 3px;
+    text-align: center;
+
+}
+span{
+    position: relative;
+    top: 10px;
+}
+#d1{
+    /*background-color: lightgray;*/
+}
+#d2{
+    /*background-color: darkgreen;*/
+}
+#secondaryGrid{
+    grid-column-gap: 5px;
+    padding-left:7px;
+    padding-right: 10px;
+    /*background-color: green;*/
+    margin-top: 10px;
+    height: 550px;
+    margin-left: auto;
+    margin-right: auto;
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    grid-template-rows: repeat(10, 10%);
+    width: 70%;
+    align-content: center;
+    align-items: center;
+    border: 1px solid black;
+    background-color: #d4ce46;
+
+}
+#secondaryGrid > div{
+    background-color: #0e5135;
+    height: 30px;
+    border-radius: 5%;
+
+}
+#buttons{
+    grid-row: 10/11;
+    grid-column: 1/3;
+}
+#score{
+    color: black;
+    font-weight: bold;
+}
+button{
+    background-color: #0d9263;
+}
+#Title{
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.4rem;
+}
+#bonus{
+    background-color: gold;
+    grid-row: 7/8;
+    grid-column: 1/3;
+    font-weight: bold;
+}

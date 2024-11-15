@@ -70,7 +70,7 @@ header {
     border-radius: 10px; /* Rounded corners for the panel */
 }
 
-#move-count {
+#move-count, #score {
     font-size: 1.5em; /* Increase font size for move count */
     margin-bottom: 10px;
     background-color: #ffffff; /* White background for the move count box */
