@@ -1,7 +1,7 @@
 html{
-    background-color: #207394;
+    background-color: #89d3df;
     font-size: 14px;
-    color: white
+    color: white;
 }
 #mainContainer{
     text-align: center;
@@ -12,7 +12,7 @@ html{
 
 }
 .dice{
-    background-color: #e14318;
+    background-color: #e01a59;
     color: white;
     font-weight: bold;
     font-size: 1.2rem;
@@ -37,21 +37,19 @@ html{
     text-align: center;
 
 }
+#dice > div > button{
+    height: 100%;
+    width: 100%;
+    background-color: #63c1a0;
+}
 span{
     position: relative;
     top: 10px;
-}
-#d1{
-    /*background-color: lightgray;*/
-}
-#d2{
-    /*background-color: darkgreen;*/
 }
 #secondaryGrid{
     grid-column-gap: 5px;
     padding-left:7px;
     padding-right: 10px;
-    /*background-color: green;*/
     margin-top: 10px;
     height: 550px;
     margin-left: auto;
@@ -62,12 +60,10 @@ span{
     width: 70%;
     align-content: center;
     align-items: center;
-    /*border: 1px solid black;*/
-    /*background-color: #d4ce46;*/
 
 }
 #secondaryGrid > div{
-    background-color: #e14318;
+    background-color: #e01a59;
     height: 30px;
     border-radius: 5%;
 
@@ -76,12 +72,16 @@ span{
     grid-row: 10/11;
     grid-column: 1/3;
 }
+#button > button{
+    padding-right: 15px;
+    border-radius: 10%;
+}
 #score{
     color: black;
     font-weight: bold;
 }
 button{
-    background-color: #ee8328;
+    background-color: #63c1a0;
 }
 #Title{
     color: black;
@@ -90,7 +90,7 @@ button{
     font-size: 1.4rem;
 }
 div#bonus{
-    background-color: #fdce10;
+    background-color: #ecb32d;
     grid-row: 7/8;
     grid-column: 1/3;
     font-weight: bold;
