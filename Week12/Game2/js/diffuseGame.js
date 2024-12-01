@@ -61,6 +61,11 @@ const game = {
             document.getElementById('message').textContent = "Bomb diffused! You win!";
             document.getElementById('attempts-left').textContent = "";
             document.getElementById('feedback').innerHTML = "";
+            document.getElementById("submit-guess").style.display = "none";
+            document.getElementById("reset").style.display = "block";
+
+
+
         } else {
             game.gameState.attemptsLeft--;
             game.updateAttemptsLeft();
@@ -98,6 +103,9 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     document.getElementById("reset").addEventListener("click", () =>{
         game.init();
+        document.getElementById("digit1").value = 0;
+        document.getElementById("digit2").value = 0;
+        document.getElementById("digit3").value = 0;
         document.getElementById("submit-guess").style.display = "block";
         document.getElementById("reset").style.display = "none";
 

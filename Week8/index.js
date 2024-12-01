@@ -1,5 +1,3 @@
 console.log('Happy developing ✨')
-let x;
-x = "h"
-x += 1
-console.log(x)
+let x = "5";
+console.log(x * 5)
