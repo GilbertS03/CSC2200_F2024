@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Yahtzee</title>
     <link rel="stylesheet" href="css/main.css"/>
-    <script src="js/main.js"></script>
 </head>
 <body>
 <div id="Title">Yahtzee - Upper Section</div>
@@ -18,29 +17,54 @@
     </div>
     <div id="secondaryGrid">
         <div id="one">Ones</div>
-        <div><button type="button" id="ones">Score</button></div>
+        <div>
+            <button type="button" id="ones">Score</button>
+            <span id="score1" style="display: none;"></span>
+        </div>
         <div id="two">Twos</div>
-        <div><button type="button" id="twos">Score</button></div>
-        <div id="three">Three</div>
-        <div><button type="button" id="threes">Score</button></div>
+        <div>
+            <button type="button" id="twos">Score</button>
+            <span id="score2" style="display: none;"></span>
+        </div>
+        <div id="three">Threes</div>
+        <div>
+            <button type="button" id="threes">Score</button>
+            <span id="score3" style="display: none;"></span>
+        </div>
         <div id="four">Fours</div>
-        <div><button type="button" id="fours">Score</button></div>
+        <div>
+            <button type="button" id="fours">Score</button>
+            <span id="score4" style="display: none;"></span>
+        </div>
         <div id="five">Fives</div>
-        <div><button type="button" id="fives">Score</button></div>
+        <div>
+            <button type="button" id="fives">Score</button>
+            <span id="score5" style="display: none;"></span>
+        </div>
         <div id="six">Sixes</div>
-        <div><button type="button" id="sixes">Score</button></div>
+        <div>
+            <button type="button" id="sixes">Score</button>
+            <span id="score6" style="display: none;"></span>
+        </div>
         <div id="bonus">Bonus: 0 (Target 60), Pts Needed: 60</div>
         <div>Three of a Kind</div>
-        <div><button type="button" id="3Kind">Score</button></div>
+        <div>
+            <button type="button" id="3Kind">Score</button>
+            <span id="score3Kind" style="display: none;"></span>
+        </div>
         <div>Full House</div>
-        <div><button type="button" id="FullHouse">Score</button></div>
+        <div>
+            <button type="button" id="fullHouse">Score</button>
+            <span id="scoreFH" style="display: none;"></span>
+        </div>
         <div id="buttons">
             <button id="roll">Roll Dice</button>
             <button id="save">Save Game</button>
             <button id="load">Load Game</button>
         </div>
     </div>
-    <div id="score">Total Score: </div>
+    <div id="score">Total Score: 0, Number Roll: 0</div>
 </div>
 </body>
+<script src="js/main.js"></script>
 </html>

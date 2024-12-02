@@ -1,56 +1,256 @@
 let game = {
     diceState: [
-        {dice : document.getElementById("roll1"), hold: false},
-        {dice: document.getElementById("roll2"), hold: false },
-        {dice : document.getElementById("roll3"), hold: false },
-        {dice : document.getElementById("roll4"), hold: false },
-        {dice : document.getElementById("roll5"), hold: false },
-
-    ]
+        {dice : document.getElementById("roll1"), hold: false, num : 1},
+        {dice : document.getElementById("roll2"), hold: false, num : 1},
+        {dice : document.getElementById("roll3"), hold: false, num : 1},
+        {dice : document.getElementById("roll4"), hold: false, num : 1},
+        {dice : document.getElementById("roll5"), hold: false, num : 1}
+    ],
+    scoreUpperButtons: [
+        {button : "ones", html: document.getElementById("ones"), scoreNumHtml: document.getElementById("score1")},
+        {button : "twos", html: document.getElementById("twos"), scoreNumHtml: document.getElementById("score2")},
+        {button : "threes", html: document.getElementById("threes"), scoreNumHtml: document.getElementById("score3")},
+        {button : "fours", html: document.getElementById("fours"), scoreNumHtml: document.getElementById("score4")},
+        {button : "fives", html: document.getElementById("fives"), scoreNumHtml: document.getElementById("score5")},
+        {button : "sixes", html: document.getElementById("sixes"), scoreNumHtml: document.getElementById("score6")},
+    ],
+    scoreLowerButtons: [
+        {button : "3Kind", html: document.getElementById("3Kind"), scoreNumHtml: document.getElementById("score3Kind")},
+        {button : "fullHouse", html: document.getElementById("fullHouse"), scoreNumHtml: document.getElementById("scoreFH")}
+    ],
+    dieLow: 1,
+    dieHigh: 7,
+    maxRolls: 3,
+    bonus: false,
+    bonusNum: 60,
+    gameOver: false,
+    numRolls: 0,
 }
 
-let user = {
-    score : 0,
+let scores = {
+    ones: 0,
+    twos: 0,
+    threes: 0,
+    fours: 0,
+    fives: 0,
+    sixes: 0,
+    bonus: 0,
+    threeOfAKind: 0,
+    fullHouse: 0,
+    rollNumber: 0,
+    totalScore: 0,
+    numTimesScored: 0,
+};
+
+function save(){
+    
+}
+function load(){
 
 }
 
-function changeDiceState(idx, state){
-
-    if(state){
-        game.diceState[idx].hold = false;
-        game.diceState[idx].dice.style.backgroundColor = "#e01a59"
+function calcScore(type){
+    dice = [];
+    for(let i = 0; i < game.diceState.length; i++){
+        dice.push(game.diceState[i].num);
+    }
+    if(scores.rollNumber !== 0){
+        if (type === "ones") {
+            scores.ones = scoreUpper(dice, 1);
+            scores.totalScore += scores.ones;
+            updateUpperHTML(0, scores.ones);
+        } 
+        else if (type === "twos") {
+            scores.twos = scoreUpper(dice, 2);
+            scores.totalScore += scores.twos;
+            updateUpperHTML(1, scores.twos);
+        } 
+        else if (type === "threes") {
+            scores.threes = scoreUpper(dice, 3);
+            scores.totalScore += scores.threes;
+            updateUpperHTML(2,scores.threes);
+        } 
+        else if (type === "fours") {
+            scores.fours = scoreUpper(dice, 4);
+            scores.totalScore += scores.fours;
+            updateUpperHTML(3,scores.fours);
+        } 
+        else if (type === "fives") {
+            scores.fives = scoreUpper(dice, 5);
+            scores.totalScore += scores.fives;
+            updateUpperHTML(4,scores.fives);
+        } 
+        else if (type === "sixes") {
+            scores.sixes = scoreUpper(dice, 6);
+            scores.totalScore += scores.sixes;
+            updateUpperHTML(5,scores.sixes);
+        } 
+        else if (type === "3Kind") {
+            if(!game.bonus){
+                alert("Bonus not achieved")
+            }
+            else{
+                scores.threeOfAKind = scoreThreeKind(dice);
+                scores.totalScore += scores.threeOfAKind;
+                updateLowerHTML(0, scores.threeOfAKind);
+            }
+        } 
+        else if (type === "fullHouse") {
+            if(!game.bonus){
+                alert("Bonus not achieved")
+            }
+            else{
+                scores.fullHouse = scoreFullHouse(dice);
+                scores.totalScore += scores.fullHouse;
+                updateLowerHTML(1, scores.fullHouse);
+            }
+        }
+        checkGame();
+        
     }
     else{
-        game.diceState[idx].hold = true;
-        game.diceState[idx].dice.style.backgroundColor = "#63c1a0"
+        alert("Must roll before scoring")
     }
 
-    console.log(game.diceState[idx].hold);
+}
+
+function updateUpperHTML(idx, score){
+    game.scoreUpperButtons[idx].html.style.display = "none";
+    game.scoreUpperButtons[idx].scoreNumHtml.style.display = "inline";
+    game.scoreUpperButtons[idx].scoreNumHtml.style.color = "black";
+    game.scoreUpperButtons[idx].scoreNumHtml.innerText = score;
+    document.getElementById("score").innerText = `Total Score: ${scores.totalScore}, Rolls: ${game.numRolls}`;
+    document.getElementById("bonus").innerText = `Bonus: ${scores.totalScore} (Target: ${game.bonusNum}), Pts Needed: ${game.bonusNum - scores.totalScore}`
+    for(let i = 0; i < game.diceState.length; i++){
+        game.diceState[i].hold = false;
+        game.diceState[i].dice.style.backgroundColor = "#63c1a0";
+    }    
+    scores.rollNumber = 0;
+    scores.numTimesScored++;
+}
+
+function updateLowerHTML(idx, score){
+    game.scoreLowerButtons[idx].html.style.display = "none";
+    game.scoreLowerButtons[idx].scoreNumHtml.style.display = "inline";
+    game.scoreLowerButtons[idx].scoreNumHtml.style.color = "black";
+    game.scoreLowerButtons[idx].scoreNumHtml.innerText = score;
+    document.getElementById("score").innerText = `Total Score: ${scores.totalScore}, Rolls: ${game.numRolls}`;
+    document.getElementById("bonus").innerText = `Bonus: ${scores.totalScore} (Target: ${game.bonusNum}), Pts Needed: ${game.bonusNum - scores.totalScore}`
+    for(let i = 0; i < game.diceState.length; i++){
+        game.diceState[i].hold = false;
+        game.diceState[i].dice.style.backgroundColor = "#63c1a0";
+    }    
+    scores.rollNumber = 0;
+    scores.numTimesScored++;
+}
+
+function checkGame(){
+    if(scores.totalScore >= game.bonusNum){
+        game.bonus = true;
+        document.getElementById("bonus").style.backgroundColor = "#e01a59"
+        document.getElementById("bonus").innerText = "Bonus Achieved!"
+    }
+    if(!game.bonus && scores.numTimesScored === 6){
+        alert("Game over")
+        game.gameOver = true;
+    }
+}
+
+function getDiceCounts(dice){
+    const counts = [0,0,0,0,0,0]
+    dice.forEach(num => counts[num - 1]++);
+    return counts;
+}
+
+function scoreUpper(dice, target){
+    let total = 0;
+    targetNums = dice.filter(num => num === target);
+    for(let i = 0; i < targetNums.length; i++){
+        total += targetNums[i];
+    }
+    return total;
+}
+
+
+function scoreThreeKind(dice){
+    let total = 0;
+    const counts = getDiceCounts(dice);
+    for(let i = 0; i < counts.length; i++){
+        if(counts [i] >= 3)
+            total += 30;
+    }
+    return total;
+    
+}
+
+function scoreFullHouse(dice){
+    let total = 0;
+    const counts = getDiceCounts(dice);
+    const hasThree = counts.includes(3);
+    const hasTwo = counts.includes(2);
+    const hasFive = counts.includes(5);
+    console.log(hasThree, hasTwo)
+    if((hasThree && hasTwo) || hasFive){
+        total += 40;
+    }
+    return total;
+}
+
+
+function changeDiceState(idx, state){
+    if(game.numRolls === 0){
+        alert("Cannot save, you have not rolled yet")
+    }
+    else{
+        if(state){
+            alert("Cannot change die once it is being held")
+        }
+        else{
+            game.diceState[idx].hold = true;
+            game.diceState[idx].dice.style.backgroundColor = "#e01a59"
+        }
+    }
 
 }
 
 function roll(){
-
+    if(scores.rollNumber > 2){
+        alert("Cannot roll, must score")
+    }
+    else{
+        for(let i = 0; i < game.diceState.length; i++){
+            if(game.diceState[i].hold === false){
+                game.diceState[i].num = Math.floor(Math.random() * (game.dieHigh - game.dieLow) + game.dieLow)
+                game.diceState[i].dice.innerText = game.diceState[i].num;
+            }
+        }
+        scores.rollNumber++;
+        game.numRolls++;
+        document.getElementById("score").innerText = `Total Score: ${scores.totalScore}, Rolls: ${game.numRolls}`
+    }
+    
 }
 
 document.addEventListener("DOMContentLoaded", function(){
     for(let i = 0; i < game.diceState.length; i++){
-        // game.diceState[i].dice.addEventListener("click", ()=> changeDiceState(i, game.diceState[i].hold));
-        console.log(game.diceState[i]);
+        game.diceState[i].dice.addEventListener("click", ()=> changeDiceState(i, game.diceState[i].hold));
     }
-    d1 = document.getElementById("roll1");
-    console.log(d1);
-    d1.addEventListener("click", ()=>changeDiceState(0, false))
-    console.log(d1)
-    const ones = document.getElementById("ones");
-    const twos = document.getElementById("twos");
-    const threes = document.getElementById("threes");
-    const fours = document.getElementById("fours");
-    const fives = document.getElementById("fives");
-    const sixes = document.getElementById("sixes");
-    const threeKind = document.getElementById("3Kind");
-    const fullHouse = document.getElementById("FullHouse");
-    const roll = document.getElementById("roll");
+
+    for(let i = 0; i < game.scoreUpperButtons.length; i++){
+        game.scoreUpperButtons[i].html.addEventListener("click", ()=> calcScore(game.scoreUpperButtons[i].button));
+    }
+    
+    game.scoreLowerButtons[0].html.addEventListener("click", ()=> calcScore(game.scoreLowerButtons[0].button));
+    game.scoreLowerButtons[1].html.addEventListener("click", ()=> calcScore(game.scoreLowerButtons[1].button));
+    
+    const rollButton = document.getElementById("roll");
+    rollButton.addEventListener("click", roll);
+
     const save = document.getElementById("save");
+    save.addEventListener("click", save);
     const load = document.getElementById("load");
+    load.addEventListener("click", load);
+    if(gameOver){
+
+    }
 })
