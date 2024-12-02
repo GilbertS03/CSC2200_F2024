@@ -34,7 +34,7 @@ let scores = {
     fours: 0,
     fives: 0,
     sixes: 0,
-    bonus: 0,
+    bonus: 35,
     threeOfAKind: 0,
     fullHouse: 0,
     rollNumber: 0,
@@ -43,7 +43,7 @@ let scores = {
 };
 
 function save(){
-    
+    localStorage.setItem()
 }
 function load(){
 
@@ -120,7 +120,7 @@ function updateUpperHTML(idx, score){
     game.scoreUpperButtons[idx].scoreNumHtml.style.color = "black";
     game.scoreUpperButtons[idx].scoreNumHtml.innerText = score;
     document.getElementById("score").innerText = `Total Score: ${scores.totalScore}, Rolls: ${game.numRolls}`;
-    document.getElementById("bonus").innerText = `Bonus: ${scores.totalScore} (Target: ${game.bonusNum}), Pts Needed: ${game.bonusNum - scores.totalScore}`
+    document.getElementById("bonus").innerText = `Bonus: ${scores.bonus} (Target: ${game.bonusNum}), Pts Needed: ${game.bonusNum - scores.totalScore}`
     for(let i = 0; i < game.diceState.length; i++){
         game.diceState[i].hold = false;
         game.diceState[i].dice.style.backgroundColor = "#63c1a0";
@@ -135,7 +135,7 @@ function updateLowerHTML(idx, score){
     game.scoreLowerButtons[idx].scoreNumHtml.style.color = "black";
     game.scoreLowerButtons[idx].scoreNumHtml.innerText = score;
     document.getElementById("score").innerText = `Total Score: ${scores.totalScore}, Rolls: ${game.numRolls}`;
-    document.getElementById("bonus").innerText = `Bonus: ${scores.totalScore} (Target: ${game.bonusNum}), Pts Needed: ${game.bonusNum - scores.totalScore}`
+    document.getElementById("bonus").innerText = `Bonus: ${scores.bonus} (Target: ${game.bonusNum}), Pts Needed: ${game.bonusNum - scores.totalScore}`
     for(let i = 0; i < game.diceState.length; i++){
         game.diceState[i].hold = false;
         game.diceState[i].dice.style.backgroundColor = "#63c1a0";
@@ -145,14 +145,24 @@ function updateLowerHTML(idx, score){
 }
 
 function checkGame(){
-    if(scores.totalScore >= game.bonusNum){
+    if(scores.totalScore >= game.bonusNum && !game.bonus){
+        scores.totalScore += scores.bonus;
         game.bonus = true;
         document.getElementById("bonus").style.backgroundColor = "#e01a59"
-        document.getElementById("bonus").innerText = "Bonus Achieved!"
+        document.getElementById("bonus").innerText = `Bonus Achieved! Bonus: ${scores.bonus}`
+        document.getElementById("score").innerText = `Total Score: ${scores.totalScore}, Rolls: ${game.numRolls}`;
+        
     }
     if(!game.bonus && scores.numTimesScored === 6){
-        alert("Game over")
+        alert(`Game over, Final Score: ${scores.totalScore}`)
         game.gameOver = true;
+    }
+    if(game.bonus && scores.numTimesScored === 8){
+        alert(`You Win! Final Score: ${scores.totalScore}`)
+        game.gameOver = true;
+    }
+    if(game.gameOver){
+        document.getElementById("reset").style.display = "inline";
     }
 }
 
@@ -175,12 +185,14 @@ function scoreUpper(dice, target){
 function scoreThreeKind(dice){
     let total = 0;
     const counts = getDiceCounts(dice);
+    let hasThreeKind = false;
     for(let i = 0; i < counts.length; i++){
         if(counts [i] >= 3)
-            total += 30;
+            hasThreeKind = true;
     }
+    if (hasThreeKind)
+        total = 30
     return total;
-    
 }
 
 function scoreFullHouse(dice){
@@ -188,9 +200,7 @@ function scoreFullHouse(dice){
     const counts = getDiceCounts(dice);
     const hasThree = counts.includes(3);
     const hasTwo = counts.includes(2);
-    const hasFive = counts.includes(5);
-    console.log(hasThree, hasTwo)
-    if((hasThree && hasTwo) || hasFive){
+    if(hasThree && hasTwo){
         total += 40;
     }
     return total;
@@ -213,6 +223,40 @@ function changeDiceState(idx, state){
 
 }
 
+function resetGame(){
+    for(let i = 0; i < game.diceState.length; i++){
+        game.diceState[i].hold = false;
+        game.diceState[i].num = 1;
+    }
+    game.gameOver = false;
+    game.bonus = false;
+    game.numRolls = 0;
+    scores.ones = 0;
+    scores.twos = 0;
+    scores.threes = 0;
+    scores.fours = 0;
+    scores.fives = 0;
+    scores.sixes = 0;
+    scores.fullHouse = 0;
+    scores.threeOfAKind = 0;
+    scores.rollNumber = 0;
+    scores.totalScore = 0;
+    scores.numTimesScored = 0;
+    for(let i = 0; i < game.scoreLowerButtons.length; i++){
+        game.scoreLowerButtons[i].scoreNumHtml.style.display = "none";
+        game.scoreLowerButtons[i].html.style.display = "inline";
+    }
+    for(let i = 0; i < game.scoreUpperButtons.length; i++){
+        game.scoreUpperButtons[i].scoreNumHtml.style.display = "none";
+        game.scoreUpperButtons[i].html.style.display = "inline";
+    }
+    document.getElementById("bonus").style.backgroundColor = "#ecb32d";
+    document.getElementById("reset").style.display = "none";
+    document.getElementById("score").innerText = `Total Score: ${scores.totalScore}, Rolls: ${game.numRolls}`;
+    document.getElementById("bonus").innerText = `Bonus: ${scores.bonus} (Target: ${game.bonusNum}), Pts Needed: ${game.bonusNum - scores.totalScore}`
+
+}
+
 function roll(){
     if(scores.rollNumber > 2){
         alert("Cannot roll, must score")
@@ -232,6 +276,10 @@ function roll(){
 }
 
 document.addEventListener("DOMContentLoaded", function(){
+    const resetButton = document.getElementById("reset");
+    resetButton.style.display = "none";
+    resetButton.addEventListener("click",resetGame);
+    
     for(let i = 0; i < game.diceState.length; i++){
         game.diceState[i].dice.addEventListener("click", ()=> changeDiceState(i, game.diceState[i].hold));
     }
@@ -250,7 +298,5 @@ document.addEventListener("DOMContentLoaded", function(){
     save.addEventListener("click", save);
     const load = document.getElementById("load");
     load.addEventListener("click", load);
-    if(gameOver){
-
-    }
+    
 })
