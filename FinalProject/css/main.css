@@ -46,9 +46,6 @@ span{
     position: relative;
     top: 10px;
 }
-#reset{
-    display: none;
-}
 #secondaryGrid{
     grid-column-gap: 5px;
     padding-left:7px;
