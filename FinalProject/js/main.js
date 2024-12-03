@@ -43,9 +43,85 @@ let scores = {
 };
 
 function save(){
-    localStorage.setItem()
+    localStorage.setItem("game", JSON.stringify(game));
+    localStorage.setItem("scores", JSON.stringify(scores));
+    
 }
 function load(){
+    let gameStr = localStorage.getItem("game");
+    let scoresStr = localStorage.getItem("scores");
+    game = JSON.parse(gameStr);
+    scores = JSON.parse(scoresStr);
+
+    const resetButton = document.getElementById("reset");
+    resetButton.style.display = "none";
+    resetButton.addEventListener("click",resetGame);
+
+    for(let i = 0; i <game.diceState.length; i++){
+        game.diceState[i].dice = document.getElementById(`roll${i + 1}`)
+        game.diceState[i].dice.addEventListener("click", ()=> changeDiceState(i, game.diceState[i].hold));
+    }
+    game.scoreUpperButtons[0].html = document.getElementById("ones");
+    game.scoreUpperButtons[1].html = document.getElementById("twos");
+    game.scoreUpperButtons[2].html = document.getElementById("threes");
+    game.scoreUpperButtons[3].html = document.getElementById("fours");
+    game.scoreUpperButtons[4].html = document.getElementById("fives");
+    game.scoreUpperButtons[5].html = document.getElementById("sixes");
+    for(let i = 0; i < game.scoreUpperButtons.length; i++){
+        game.scoreUpperButtons[i].scoreNumHtml = document.getElementById(`score${i+1}`);
+        game.scoreUpperButtons[i].html.addEventListener("click", ()=> calcScore(game.scoreUpperButtons[i].button));
+    }
+    game.scoreLowerButtons[0].html = document.getElementById("3Kind");
+    game.scoreLowerButtons[1].html = document.getElementById("fullHouse");
+    game.scoreLowerButtons[0].html.addEventListener("click", ()=> calcScore(game.scoreLowerButtons[0].button));
+    game.scoreLowerButtons[1].html.addEventListener("click", ()=> calcScore(game.scoreLowerButtons[1].button));
+
+    game.scoreLowerButtons[0].scoreNumHtml = document.getElementById("score3Kind");
+    game.scoreLowerButtons[1].scoreNumHtml = document.getElementById("scoreFH");
+
+    const rollButton = document.getElementById("roll");
+    rollButton.addEventListener("click", roll);
+
+    const saveButton = document.getElementById("save");
+    saveButton.addEventListener("click", save);
+    const loadButton = document.getElementById("load");
+    loadButton.addEventListener("click", load);
+
+    loadHTML();
+
+}
+
+function loadHTML(){
+    for(let i = 0; i < game.diceState.length; i++){
+        if(game.diceState[i].hold)
+            game.diceState[i].dice.style.backgroundColor = "#e01a59"
+        else{
+            game.diceState[i].dice.style.backgroundColor = "#63c1a0"
+        }
+    }
+    game.scoreLowerButtons.forEach(button => {
+        if (scores[button.button] > 0) {
+            button.html.style.display = "none";
+            button.scoreNumHtml.style.display = "inline";
+            button.scoreNumHtml.innerText = scores[button.button];
+        }
+        else {
+            button.html.style.display = "inline";
+            button.scoreNumHtml.style.display = "none";
+        }
+    });
+    if(scores.totalScore < game.bonusNum){
+        document.getElementById("bonus").style.backgroundColor = "#ecb32d"
+    }
+    else{
+        document.getElementById("bonus").style.backgroundColor = "#e01a59"
+    }
+    checkGame();
+    document.getElementById("score").innerText = `Total Score: ${scores.totalScore}, Rolls: ${game.numRolls}`;
+    for(let i = 0; i < game.diceState.length; i++){
+        game.diceState[i].dice.innerText = game.diceState[i].num;
+    }
+
 
 }
 
@@ -253,7 +329,7 @@ function resetGame(){
     document.getElementById("bonus").style.backgroundColor = "#ecb32d";
     document.getElementById("reset").style.display = "none";
     document.getElementById("score").innerText = `Total Score: ${scores.totalScore}, Rolls: ${game.numRolls}`;
-    document.getElementById("bonus").innerText = `Bonus: ${scores.bonus} (Target: ${game.bonusNum}), Pts Needed: ${game.bonusNum - scores.totalScore}`
+    document.getElementById("bonus").innerText = `Bonus: 0 (Target: ${game.bonusNum}), Pts Needed: ${game.bonusNum - scores.totalScore}`
 
 }
 
@@ -294,9 +370,9 @@ document.addEventListener("DOMContentLoaded", function(){
     const rollButton = document.getElementById("roll");
     rollButton.addEventListener("click", roll);
 
-    const save = document.getElementById("save");
-    save.addEventListener("click", save);
-    const load = document.getElementById("load");
-    load.addEventListener("click", load);
+    const saveButton = document.getElementById("save");
+    saveButton.addEventListener("click", save);
+    const loadButton = document.getElementById("load");
+    loadButton.addEventListener("click", load);
     
 })
