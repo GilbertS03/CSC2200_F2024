@@ -53,13 +53,12 @@ function load(){
     game = JSON.parse(gameStr);
     scores = JSON.parse(scoresStr);
 
+    //Had to reset all of the elements and get their values back
     const resetButton = document.getElementById("reset");
     resetButton.style.display = "none";
-    resetButton.addEventListener("click",resetGame);
 
     for(let i = 0; i <game.diceState.length; i++){
         game.diceState[i].dice = document.getElementById(`roll${i + 1}`)
-        game.diceState[i].dice.addEventListener("click", ()=> changeDiceState(i, game.diceState[i].hold));
     }
     game.scoreUpperButtons[0].html = document.getElementById("ones");
     game.scoreUpperButtons[1].html = document.getElementById("twos");
@@ -69,28 +68,16 @@ function load(){
     game.scoreUpperButtons[5].html = document.getElementById("sixes");
     for(let i = 0; i < game.scoreUpperButtons.length; i++){
         game.scoreUpperButtons[i].scoreNumHtml = document.getElementById(`score${i+1}`);
-        game.scoreUpperButtons[i].html.addEventListener("click", ()=> calcScore(game.scoreUpperButtons[i].button));
     }
     game.scoreLowerButtons[0].html = document.getElementById("3Kind");
     game.scoreLowerButtons[1].html = document.getElementById("fullHouse");
-    game.scoreLowerButtons[0].html.addEventListener("click", ()=> calcScore(game.scoreLowerButtons[0].button));
-    game.scoreLowerButtons[1].html.addEventListener("click", ()=> calcScore(game.scoreLowerButtons[1].button));
-
     game.scoreLowerButtons[0].scoreNumHtml = document.getElementById("score3Kind");
     game.scoreLowerButtons[1].scoreNumHtml = document.getElementById("scoreFH");
-
-    const rollButton = document.getElementById("roll");
-    rollButton.addEventListener("click", roll);
-
-    const saveButton = document.getElementById("save");
-    saveButton.addEventListener("click", save);
-    const loadButton = document.getElementById("load");
-    loadButton.addEventListener("click", load);
-
+    
     loadHTML();
-
 }
 
+//Sets everything back to the way it was before when it gets loaded up
 function loadHTML(){
     for(let i = 0; i < game.diceState.length; i++){
         if(game.diceState[i].hold)
@@ -100,6 +87,7 @@ function loadHTML(){
         }
     }
     game.scoreLowerButtons.forEach(button => {
+        console.log(scores[button.button] > 0)
         if (scores[button.button] > 0) {
             button.html.style.display = "none";
             button.scoreNumHtml.style.display = "inline";
@@ -110,6 +98,7 @@ function loadHTML(){
             button.scoreNumHtml.style.display = "none";
         }
     });
+    console.log(scores.totalScore)
     if(scores.totalScore < game.bonusNum){
         document.getElementById("bonus").style.backgroundColor = "#ecb32d"
     }
@@ -117,7 +106,7 @@ function loadHTML(){
         document.getElementById("bonus").style.backgroundColor = "#e01a59"
     }
     checkGame();
-    document.getElementById("score").innerText = `Total Score: ${scores.totalScore}, Rolls: ${game.numRolls}`;
+    document.getElementById("score").innerText = `Total Score: ${scores.totalScore}, Rolls: ${game.numRolls}, Current Roll: ${scores.rollNumber}`;
     for(let i = 0; i < game.diceState.length; i++){
         game.diceState[i].dice.innerText = game.diceState[i].num;
     }
@@ -125,6 +114,7 @@ function loadHTML(){
 
 }
 
+//Finds the type of roll they want to score on and calls a function based on the dice and the number
 function calcScore(type){
     dice = [];
     for(let i = 0; i < game.diceState.length; i++){
@@ -162,35 +152,27 @@ function calcScore(type){
             updateUpperHTML(5,scores.sixes);
         } 
         else if (type === "3Kind") {
-            if(!game.bonus){
-                alert("Bonus not achieved")
-            }
-            else{
-                scores.threeOfAKind = scoreThreeKind(dice);
-                scores.totalScore += scores.threeOfAKind;
-                updateLowerHTML(0, scores.threeOfAKind);
-            }
+            scores.threeOfAKind = scoreThreeKind(dice);
+            scores.totalScore += scores.threeOfAKind;
+            updateLowerHTML(0, scores.threeOfAKind);
         } 
         else if (type === "fullHouse") {
-            if(!game.bonus){
-                alert("Bonus not achieved")
-            }
-            else{
-                scores.fullHouse = scoreFullHouse(dice);
-                scores.totalScore += scores.fullHouse;
-                updateLowerHTML(1, scores.fullHouse);
-            }
+            scores.fullHouse = scoreFullHouse(dice);
+            scores.totalScore += scores.fullHouse;
+            updateLowerHTML(1, scores.fullHouse);
         }
         checkGame();
         
     }
     else{
+        //Will make them roll before scoring and will not allow them to score otherwise
         alert("Must roll before scoring")
     }
 
 }
 
 function updateUpperHTML(idx, score){
+    //Hides the score button for the upper html and displays the score they achieved and updates the total and the rolls and the bonus
     game.scoreUpperButtons[idx].html.style.display = "none";
     game.scoreUpperButtons[idx].scoreNumHtml.style.display = "inline";
     game.scoreUpperButtons[idx].scoreNumHtml.style.color = "black";
@@ -201,10 +183,11 @@ function updateUpperHTML(idx, score){
         game.diceState[i].hold = false;
         game.diceState[i].dice.style.backgroundColor = "#63c1a0";
     }    
+    //Resets the roll number to make sure they can roll again and adds to the number of the times they have scored so they cannot roll on the first view of the dice
     scores.rollNumber = 0;
     scores.numTimesScored++;
 }
-
+//Hides the score button for the lower html and displays the score they achieved and updates the total and the rolls and the bonus
 function updateLowerHTML(idx, score){
     game.scoreLowerButtons[idx].html.style.display = "none";
     game.scoreLowerButtons[idx].scoreNumHtml.style.display = "inline";
@@ -216,11 +199,13 @@ function updateLowerHTML(idx, score){
         game.diceState[i].hold = false;
         game.diceState[i].dice.style.backgroundColor = "#63c1a0";
     }    
+    //Resets the roll number to make sure they can roll again and adds to the number of the times they have scored so they cannot roll on the first view of the dice
     scores.rollNumber = 0;
     scores.numTimesScored++;
 }
 
 function checkGame(){
+    //Sees if the bonus has been achieved yet
     if(scores.totalScore >= game.bonusNum && !game.bonus){
         scores.totalScore += scores.bonus;
         game.bonus = true;
@@ -229,25 +214,28 @@ function checkGame(){
         document.getElementById("score").innerText = `Total Score: ${scores.totalScore}, Rolls: ${game.numRolls}`;
         
     }
-    if(!game.bonus && scores.numTimesScored === 6){
-        alert(`Game over, Final Score: ${scores.totalScore}`)
+    else if(scores.totalScore >= game.bonusNum && game.bonus){
+        document.getElementById("bonus").style.backgroundColor = "#e01a59"
+        document.getElementById("bonus").innerText = `Bonus Achieved! Bonus: ${scores.bonus}`
+        document.getElementById("score").innerText = `Total Score: ${scores.totalScore}, Rolls: ${game.numRolls}`;
+    }
+    //If all areas have been scored in, then end the game and display final score
+    if(scores.numTimesScored === 8){
+        alert(`Your Final Score: ${scores.totalScore}`)
         game.gameOver = true;
     }
-    if(game.bonus && scores.numTimesScored === 8){
-        alert(`You Win! Final Score: ${scores.totalScore}`)
-        game.gameOver = true;
-    }
+    //Displays reset button when game over
     if(game.gameOver){
         document.getElementById("reset").style.display = "inline";
     }
 }
-
+//Counts the number of times each dice number has appeared. For example, [5,5,5,2,1], 5 has appeared 3 times, 2 one times, 1 one times
 function getDiceCounts(dice){
     const counts = [0,0,0,0,0,0]
     dice.forEach(num => counts[num - 1]++);
     return counts;
 }
-
+//Counts the number of times a dice has appeared depending on the target and adds up all the types of the number
 function scoreUpper(dice, target){
     let total = 0;
     targetNums = dice.filter(num => num === target);
@@ -257,7 +245,7 @@ function scoreUpper(dice, target){
     return total;
 }
 
-
+//Checks to see if there are three or more of a specific number and then they can score
 function scoreThreeKind(dice){
     let total = 0;
     const counts = getDiceCounts(dice);
@@ -270,7 +258,7 @@ function scoreThreeKind(dice){
         total = 30
     return total;
 }
-
+//Checks to see if 3 exist and 2 exist of a 2 numbers to make sure it is a full house after calling the getDiceCounts function
 function scoreFullHouse(dice){
     let total = 0;
     const counts = getDiceCounts(dice);
@@ -282,7 +270,7 @@ function scoreFullHouse(dice){
     return total;
 }
 
-
+//Cannot change the state of the dice (save or not) if you have not rolled yet. You also cannot change it back once already changed
 function changeDiceState(idx, state){
     if(game.numRolls === 0){
         alert("Cannot save, you have not rolled yet")
@@ -298,7 +286,7 @@ function changeDiceState(idx, state){
     }
 
 }
-
+//Resets everything back to 0 and redisplays everything
 function resetGame(){
     for(let i = 0; i < game.diceState.length; i++){
         game.diceState[i].hold = false;
@@ -332,7 +320,7 @@ function resetGame(){
     document.getElementById("bonus").innerText = `Bonus: 0 (Target: ${game.bonusNum}), Pts Needed: ${game.bonusNum - scores.totalScore}`
 
 }
-
+//Random number generator from 1-6 for a proper dice
 function roll(){
     if(scores.rollNumber > 2){
         alert("Cannot roll, must score")
@@ -346,7 +334,7 @@ function roll(){
         }
         scores.rollNumber++;
         game.numRolls++;
-        document.getElementById("score").innerText = `Total Score: ${scores.totalScore}, Rolls: ${game.numRolls}`
+        document.getElementById("score").innerText = `Total Score: ${scores.totalScore}, Rolls: ${game.numRolls}, Current Roll: ${scores.rollNumber}`;
     }
     
 }
