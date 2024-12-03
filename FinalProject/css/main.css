@@ -3,6 +3,25 @@ html{
     font-size: 14px;
     color: white;
 }
+a{
+    text-decoration: underline;
+    color: white;
+}
+a:visited{
+    color: white;
+    text-decoration: underline
+}
+footer{
+    padding-top: 7px;
+    height: 50px;
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    background-color: black;
+    text-align: center;
+    justify-content: center;
+    margin-top: 50px;
+}
 #mainContainer{
     text-align: center;
     align-items: center;
