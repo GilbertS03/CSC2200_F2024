@@ -348,6 +348,14 @@ function resetGame(){
     scores.rollNumber = 0;
     scores.totalScore = 0;
     scores.numTimesScored = 0;
+    scores.scoredones = false;
+    scores.scoredtwos = false;
+    scores.scoredthrees = false;
+    scores.scoredfours = false;
+    scores.scoredfives = false;
+    scores.scoredsixes = false;
+    scores.scoredthreeOfAKind = false;
+    scores.scoredfullHouse = false;
     for(let i = 0; i < game.scoreLowerButtons.length; i++){
         game.scoreLowerButtons[i].scoreNumHtml.style.display = "none";
         game.scoreLowerButtons[i].html.style.display = "inline";
